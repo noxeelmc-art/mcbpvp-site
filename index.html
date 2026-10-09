@@ -202,6 +202,9 @@ nav .pill{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padd
 .w[data-pg=profile] .fx,.w[data-pg=tournament] .fx{margin-left:-16px;margin-right:-16px}
 .hero{padding-top:26px}.mbn{max-width:none}
 }
+
+.stc{float:right;color:#4ade80;font:700 13px Inter}.who2{display:flex;align-items:center;gap:10px;margin:6px 0 10px}.who2 img{width:40px;height:40px;border-radius:50%}.who2 b{font:700 17px Outfit}
+.lnk{display:block;width:100%;background:none;border:1px solid #2a3360;color:#aab2cf;border-radius:10px;padding:11px 14px;margin-top:10px;font:600 13px Inter;cursor:pointer}.step .dcb{margin-bottom:4px}.ua{width:26px;height:26px;border-radius:50%;object-fit:cover}
 </style></head><body><div class="w">
 <nav><div class="pill shine" data-p="home"><img id="lg" alt="MCBPVP"></div>
 <div class="ics" id="ics"></div></nav>
@@ -263,7 +266,7 @@ const LB=m=>P.filter(p=>p.t[m]!=null).sort((a,b)=>b.sc[m]-a.sc[m]);
 function backH(p,m){const[k,l]=MODES[m],t=p.t[m],L=LB(m),r=L.findIndex(x=>x.i==p.i)+1;return `<div class="bk" style="--ac:${AC[k]}"><img src="${IC[k]}" alt="" ${PXL(k)}><div><div class="bm">${l}</div><div class="bt ${tc(t)}">${t==null?'Unranked':TIERS[t]}</div><div class="br">${t==null?'Not tested in this mode yet':'#'+r+' of '+L.length+' on the leaderboard'}</div></div></div>${t==null?'':`<div class="bs"><div><small>Score</small><b>${p.sc[m].toLocaleString()}</b></div><div><small>Wins</small><b>${p.w[m]}</b></div><div><small>Win rate</small><b>${(60+p.sc[m]%37).toFixed(1)}%</b></div></div>`}<div class="bh"><span data-go="${k}">Open ${l} leaderboard</span> &middot; tap to flip back</div>`}
 let curM=null;
 let sv=null,page='home',mode='overall',sort='sc',qs='';
-function nav(){document.getElementById('ics').innerHTML=[['home','home'],['tiers','tiers'],['tournaments','trophy'],['sp'],['servers','srv'],['register','login']].map(([k,i])=>k=='sp'?'<div class="sp"></div>':`<div class="ic ${page==k||(page=='profile'&&k=='tiers')||(page=='tournament'&&k=='tournaments')?'on':''}" data-p="${k}"><svg viewBox="0 0 24 24">${SVG[i]}</svg><span class="lb">${{home:'Home',tiers:'Tiers',tournaments:'Tournaments',servers:'Servers',register:'Login'}[k]}</span></div>`).join('')+`<div class="reg" data-p="register"><svg viewBox="0 0 26 24">${SVG.reg}</svg><span class="lb">Register</span></div>`}
+function nav(){document.getElementById('ics').innerHTML=[['home','home'],['tiers','tiers'],['tournaments','trophy'],['sp'],['servers','srv'],['register','login']].map(([k,i])=>k=='sp'?'<div class="sp"></div>':`<div class="ic ${page==k||(page=='profile'&&k=='tiers')||(page=='tournament'&&k=='tournaments')?'on':''}" data-p="${k}"><svg viewBox="0 0 24 24">${SVG[i]}</svg><span class="lb">${{home:'Home',tiers:'Tiers',tournaments:'Tournaments',servers:'Servers',register:'Login'}[k]}</span></div>`).join('')+`<div class="reg" data-p="register">${USER&&dcAv()?`<img class="ua" src="${dcAv()}" alt="">`:`<svg viewBox="0 0 26 24">${SVG.reg}</svg>`}<span class="lb">${USER?USER.name.slice(0,12):'Register'}</span></div>`}
 const by=()=>[...P].filter(p=>p.n.toLowerCase().includes(qs)).sort((a,b)=>b.pts-a.pts);
 function home(){const L=by(),g=(p,c,n,a)=>p?`<div class="col ${c}${n==1?' shine':''}" data-pl="${p.i}"><div class="n ign">${p.n}</div>${fig(p,0,a)}<div class="num">${n}</div></div>`:'';
 return `<div class="ban" style="background:linear-gradient(90deg,#080b16 10%,#080b1666),url(${IC.b1}) center/cover"><span class="chip">BEDROCK PVP RANKINGS</span><h2>Climb the tiers.</h2><p>11 gamemodes. One leaderboard.</p></div>
@@ -276,9 +279,22 @@ if(c)h+=`<div class="mbn" style="--ac:${AC[mode]};--ab:${AC[mode]}33"><div class
 h+=`<div class="sort">${[['sc','Score'],['w','Wins'],['wr','Win rate']].map(([k,l])=>`<button class="${sort==k?'on':''}" data-s="${k}">${l}</button>`).join('')}</div>`;
 L.filter(p=>p.n.toLowerCase().includes(qs)).sort((a,b)=>sort=='sc'?b.sc[m]-a.sc[m]:sort=='w'?b.w[m]-a.w[m]:wr(b)-wr(a)).forEach((p,i)=>{h+=`<div class="card ${i<3&&sort=='sc'?'g'+(i+1):''}"><div class="top"><div class="rk">${i+1}</div><div class="av">${fig(p,1)}</div><div><div class="nm ign" data-pl="${p.i}">${p.n}</div><div class="sub"><b class="${tc(p.t[m])}">${TIERS[p.t[m]]}</b></div></div><div class="fl">${p.f}</div></div><div class="sts"><div><small>Score</small><b>${p.sc[m].toLocaleString()}</b></div><div><small>Wins</small><b>${p.w[m]}</b></div><div><small>Win rate</small><b>${wr(p).toFixed(1)}%</b></div></div></div>`})}
 return tabs+h}
-function register(){return `<div class="cen" style="--bg:url(${IC.b2})"><span class="chip">NEW TO MCBPVP CLUB?</span><h1>Register Your Account</h1><p>Connect with Discord to get registered and start climbing the tiers.</p></div>
-<div class="step"><span class="s">Step 1</span><h2>Connect with Discord</h2><p>Sign in with Discord. This creates your MCBPVP CLUB account.</p><button class="dc" id="dc">Connect with Discord</button></div>
-<div class="step"><span class="s">Step 2</span><h2>Link your Bedrock gamertag</h2><p>After connecting, join the server and your gamertag is linked to your Discord account.</p></div>`}
+let DCFG={clientId:'',guildId:'',invite:''},RGD={},USER=null;try{USER=JSON.parse(localStorage.getItem('mcb_user')||'null')}catch(_){}
+const sha=async s=>{try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(String(s)));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(_){return''}};
+async function dcRefresh(){if(!USER)return;const h=await sha(USER.id);USER.reg=(h&&RGD[h])||null}
+function dcStart(){if(!DCFG.clientId){toast('Discord login is not set up yet');return}const st=[...crypto.getRandomValues(new Uint32Array(4))].join('-');sessionStorage.setItem('mcb_state',st);location.href='https://discord.com/oauth2/authorize?response_type=token&client_id='+encodeURIComponent(DCFG.clientId)+'&scope='+encodeURIComponent('identify guilds')+'&state='+st+'&redirect_uri='+encodeURIComponent(location.origin+location.pathname)}
+async function dcLoad(tok){try{const H={Authorization:'Bearer '+tok},u=await(await fetch('https://discord.com/api/users/@me',{headers:H})).json();if(!u.id)throw 0;let inG=false;try{const g=await(await fetch('https://discord.com/api/users/@me/guilds',{headers:H})).json();inG=Array.isArray(g)&&g.some(x=>x.id==DCFG.guildId)}catch(_){}USER={id:u.id,name:u.global_name||u.username,av:u.avatar,inG};try{sessionStorage.setItem('mcb_dtok',tok);localStorage.setItem('mcb_user',JSON.stringify(USER))}catch(_){}await dcRefresh();return true}catch(_){toast('Could not read your Discord account');return false}}
+async function dcReturn(){const h=new URLSearchParams(location.hash.slice(1)),tok=h.get('access_token');if(!tok)return false;history.replaceState(null,'',location.pathname+location.search);if(h.get('state')!==sessionStorage.getItem('mcb_state')){toast('Login check failed, please try again');return false}sessionStorage.removeItem('mcb_state');return dcLoad(tok)}
+async function dcCheck(){const k=sessionStorage.getItem('mcb_dtok');if(k&&await dcLoad(k)){draw();toast('Status updated')}else dcStart()}
+function dcLogout(){USER=null;try{localStorage.removeItem('mcb_user');sessionStorage.removeItem('mcb_dtok')}catch(_){}draw()}
+const dcAv=()=>USER&&USER.av?`https://cdn.discordapp.com/avatars/${USER.id}/${USER.av}.png?size=64`:null;
+function register(){const c=DCFG,U=USER;if(!c.clientId)return pg('Register your account','Discord login is not set up yet. The site owner still has to add the Discord settings.','<div class="panel nb2">Ask staff in our Discord for help in the meantime.</div>');
+const me=U&&U.reg?P.find(p=>p.n==U.reg):null,card=(n,t,body,ok)=>`<div class="step"><span class="s">Step ${n}</span>${ok?'<span class="stc">&#10003; Done</span>':''}<h2>${t}</h2>${body}</div>`;
+let h=pg(U&&U.inG&&U.reg?'You are registered':'Register your account',U&&U.inG&&U.reg?'Welcome, '+U.reg+'!':'Connect Discord, join our server and apply. It only takes a minute.','');
+h+=card(1,'Connect with Discord',U?`<div class="who2">${dcAv()?`<img src="${dcAv()}" alt="">`:''}<b>${U.name}</b></div><button class="lnk" data-dclogout>Log out</button>`:'<p>Sign in with Discord so we know who you are. We only read your name and which servers you are in.</p><button class="dc" data-dclogin>Connect with Discord</button>',!!U);
+if(U){h+=card(2,'Join our Discord server',U.inG?'<p>You are in the server.</p>':`<p>Join the server, then come back and check again.</p>${c.invite?`<a class="dcb" href="${c.invite}" target="_blank" rel="noopener">Join the Discord server</a>`:''}<button class="lnk" data-dccheck>I joined, check again</button>`,U.inG);
+h+=card(3,'Apply in Discord',U.reg?`<p>Registered as <b class="ign">${U.reg}</b>.</p>${me?`<button class="dc" data-pf="${me.i}">View my profile</button>`:'<p>Your tiers show up after your first tier test.</p>'}`:`<p>In the Discord server, open the apply channel and press <b>Apply</b>. Once you are accepted, you will show up here.</p>${c.invite?`<a class="dcb" href="${c.invite}" target="_blank" rel="noopener">Open Discord</a>`:''}<button class="lnk" data-dcpull>Check my status</button>`,!!U.reg)}
+return h}
 const SERVERS=[
 {id:'mcbpvp',cls:'wm',name:'MCBPVP CLUB',sub:'Bedrock PvP Practice',art:IC.logo,bg:'linear-gradient(135deg,#3a0610,#10040a 62%,#a3101f)',soon:true,about:'Our Bedrock-only PvP practice server with 11 gamemodes and tier testing. Launching soon.'},
 {id:'tidal',name:'Tidal',sub:'Bedrock PvP Practice',art:IC.tidal,bl:1,bg:'linear-gradient(135deg,#02131f,#05283f 60%,#0a6aa8)',ip:'tidalpvp.com',port:'19132',discord:'',dm:2152,don:145,about:'A fresh and upcoming Bedrock PvP practice server designed for players of all skill levels.'},
@@ -341,9 +357,10 @@ function normT(x){return{id:String(x.id),name:x.name,mode:x.mode||'sword',status
 function applyData(d){if(d.players&&d.players.length){P.length=0;d.players.forEach((x,i)=>{const t=MODES.map(([k])=>{const v=x.tiers&&x.tiers[k],j=v?TIERS.indexOf(String(v).toUpperCase()):-1;return j<0?null:j}),p={i,r:x.region||'NA',n:x.name,f:flag(x.country),dev:x.device?[x.device,x.input||'—']:null,c:COL[i%8],t,sc:MODES.map(([k],m)=>t[m]==null?0:(x.scores&&x.scores[k])||t[m]*300),w:MODES.map(([k],m)=>t[m]==null?0:(x.wins&&x.wins[k])||0)};p.pts=t.reduce((a,v)=>a+(v==null?0:PTS[v]),0);P.push(p);if(x.skin)SKINS[x.name.toLowerCase()]=x.skin})}
 if(d.tournaments)TN=d.tournaments.map(normT);
 if(d.matches){const g=n=>P.find(p=>p.n.toLowerCase()==String(n).toLowerCase())||{i:-1,n:String(n),t:[]};LM=d.matches.map(x=>({a:g(x.a),b:g(x.b),m:Math.max(0,MODES.findIndex(m=>m[0]==x.mode)),s:[x.sa||0,x.sb||0]}))}
+if(d.discord)DCFG=Object.assign(DCFG,d.discord);if(d.registered){RGD={};d.registered.forEach(r=>{RGD[r.h]=r.n})}
 DSRC='live';DUP=d.updated||'';pf=0}
-async function pull(){for(const u of ['site-data.json','/api/site-data']){try{const r=await fetch(u+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)continue;const d=await r.json();applyData(d);try{localStorage.setItem('mcb_data',JSON.stringify(d))}catch(_){}return true}catch(_){}}return false}
-async function boot(){seedTN();try{const s=localStorage.getItem('mcb_data');if(s)applyData(JSON.parse(s))}catch(_){}draw();if(await pull())draw();setInterval(async()=>{if(await pull()&&!document.getElementById('ov').classList.contains('on'))draw()},60000)}
+async function pull(){for(const u of ['site-data.json','/api/site-data']){try{const r=await fetch(u+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)continue;const d=await r.json();applyData(d);if(USER)await dcRefresh();try{localStorage.setItem('mcb_data',JSON.stringify(d))}catch(_){}return true}catch(_){}}return false}
+async function boot(){seedTN();try{const s=localStorage.getItem('mcb_data');if(s)applyData(JSON.parse(s))}catch(_){}await dcRefresh();draw();await pull();if(await dcReturn()){page='register';scrollTo(0,0)}draw();setInterval(async()=>{if(await pull()&&!document.getElementById('ov').classList.contains('on'))draw()},60000)}
 const tnSort=()=>[...TN].sort((a,b)=>{const o={live:0,upcoming:1,ended:2};return o[a.status]-o[b.status]||(a.status=='ended'?b.start-a.start:a.start-b.start)});
 function tnChip(x){return `<span class="tch ${x.status}">${x.status=='live'?'<i></i>':''}${SN[x.status]}</span>`}
 function tnCard(x){const ac=AC[x.mode]||AC.overall;return `<div class="tnc" data-tn="${x.id}" style="--ac:${ac};--ab:${ac}33"><div class="tr1"><img src="${IC[x.mode]}" alt="" ${PXL(x.mode)}>${tnChip(x)}</div><div class="tnm">${x.name}</div><div class="tms">${mname(x.mode)} &middot; ${x.status=='ended'?'Ended '+when(x.start):x.status=='live'?'In progress':'Starts '+when(x.start)}</div><div class="tfx"><span>Prize ${x.prize}</span><span>${x.np}/${x.max}</span></div></div>`}
@@ -392,6 +409,11 @@ function closeM(){document.getElementById('ov').classList.remove('on');document.
 document.addEventListener('change',e=>{if(e.target.id=='imp'&&e.target.files[0]){const fr=new FileReader();fr.onload=()=>{try{const d=JSON.parse(fr.result);applyData(d);try{localStorage.setItem('mcb_data',JSON.stringify(d))}catch(_){}draw();toast('Bot data imported')}catch(_){toast('That file is not valid JSON')}};fr.readAsText(e.target.files[0]);e.target.value='';return}
 if(e.target.id!='skf'||!e.target.files[0])return;const fr=new FileReader(),i=curM;fr.onload=()=>{USK[i]=fr.result;draw();openM(i)};fr.readAsDataURL(e.target.files[0])});
 document.addEventListener('click',e=>{if(!e.target.closest('.sb'))hideSg();
+if(e.target.closest('[data-dclogin]')){dcStart();return}
+if(e.target.closest('[data-dccheck]')){dcCheck();return}
+if(e.target.closest('[data-dclogout]')){dcLogout();return}
+if(e.target.closest('[data-dcpull]')){pull().then(()=>{draw();toast('Status updated')});return}
+
 const tn0=e.target.closest('[data-tn]');if(tn0){tn=tn0.dataset.tn;if(page!='tournament')pv=page;page='tournament';draw();scrollTo(0,0);return}
 const tf0=e.target.closest('[data-tf]');if(tf0){tf=tf0.dataset.tf;draw();return}
 if(e.target.closest('[data-imp]')){document.getElementById('imp').click();return}
@@ -408,7 +430,7 @@ const fl=e.target.closest('[data-fl]');if(fl){const[i,m]=fl.dataset.fl.split(':'
 const un=e.target.closest('[data-unflip]');if(un){un.closest('.fc').classList.remove('on');return}
 const pl=e.target.closest('[data-pl]');if(pl){openM(+pl.dataset.pl);return}if(e.target.closest('[data-x]')){closeM();return}const p=e.target.closest('[data-p]'),t=e.target.closest('.tab'),b=e.target.closest('[data-s]');
 if(p){page=p.dataset.p;sv=null;draw();scrollTo(0,0)}else if(t){mode=t.dataset.k;draw()}else if(b){sort=b.dataset.s;draw()}
-else if(e.target.id=='dc'){DISCORD_LOGIN_URL?location.href=DISCORD_LOGIN_URL:toast('Discord login is not connected yet')}});
+});
 const hl=(n,v)=>{const i=n.toLowerCase().indexOf(v);return i<0?n:n.slice(0,i)+'<u>'+n.slice(i,i+v.length)+'</u>'+n.slice(i+v.length)};
 function sug(v){const L=p=>p.n.toLowerCase(),ex=P.filter(p=>L(p)==v);if(ex.length)return ex;const st=P.filter(p=>L(p).startsWith(v)),ct=P.filter(p=>!L(p).startsWith(v)&&L(p).includes(v)),sq=P.filter(p=>{if(L(p).includes(v)||v.length<3)return 0;let j=0;for(const c of L(p))if(c==v[j])j++;return j==v.length});return st.concat(ct,sq).slice(0,6)}
 function showSg(){const v=document.getElementById('q').value.trim().toLowerCase(),g=document.getElementById('sg');if(!v){hideSg();return}const L=sug(v);
