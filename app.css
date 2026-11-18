@@ -222,3 +222,60 @@ a.dcb{cursor:pointer}a.dcb:hover{filter:brightness(1.08)}
 .ds{color:#6b77a3}
 input#q{font-size:16px}
 img{max-width:100%}
+/* ===== v2: bedrock upgrade ===== */
+/* rank title boxes: same height everywhere, never wrap */
+.ttl{--tc:#aab3cf;--tb:#2a3150;--tg:#121729;display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:7px;font:700 11.5px/1 Outfit,sans-serif;letter-spacing:.2px;white-space:nowrap;color:var(--tc);background:var(--tg);border:1px solid var(--tb);vertical-align:middle;flex:none;max-width:100%;overflow:hidden;position:relative;isolation:isolate}
+.ttl svg{width:12px;height:12px;fill:currentColor;flex:none}
+.ttl.lg{height:34px;padding:0 15px;gap:8px;border-radius:11px;font-size:15px}
+.ttl.lg svg{width:16px;height:16px}
+.tl1{--tc:#6ee7a1;--tb:#1f5137;--tg:#0b1d15}
+.tl2{--tc:#5eead4;--tb:#1d4d49;--tg:#0a1c1b}
+.tl3{--tc:#7cb7ff;--tb:#264a7d;--tg:#0c1830}
+.tl4{--tc:#c4a1ff;--tb:#4b3380;--tg:#191130}
+.tl5{--tc:#ffd23f;--tb:#7a6417;--tg:#241c06;box-shadow:0 0 14px #ffc4141f}
+.tl6{--tc:#ff7b86;--tb:#8a1f2c;--tg:#2a0a10;box-shadow:0 0 16px #ff2d3d2e}
+.tl4::after,.tl5::after,.tl6::after,.ttl.lg::after{content:'';position:absolute;inset:-2px;z-index:-1;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);transform:translateX(-120%);animation:shn2 3.6s cubic-bezier(.45,0,.2,1) infinite}
+.sub{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin-top:4px}
+.sub .pts{color:#8b94b3;font-size:12px}
+.row .pt{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.row .pt small{color:var(--mut);font-size:12px}
+.badge2{margin:12px 0 6px;display:flex;justify-content:center}
+/* shines */
+.shine::after{background:linear-gradient(105deg,transparent 32%,rgba(255,255,255,.05) 42%,rgba(255,255,255,.32) 50%,rgba(255,255,255,.05) 58%,transparent 68%)!important;animation:shn 4.4s cubic-bezier(.45,0,.2,1) infinite!important;will-change:transform}
+@keyframes shn{0%{transform:translateX(-130%) skewX(-10deg)}55%,100%{transform:translateX(130%) skewX(-10deg)}}
+@keyframes shn2{0%{transform:translateX(-120%)}50%,100%{transform:translateX(120%)}}
+.c1,.fc.g1 .front,.hero,.mdl{animation:gold 3.2s ease-in-out infinite}
+@keyframes gold{0%,100%{box-shadow:0 0 0 1px #f5c54222,0 0 18px #f5c5421a}50%{box-shadow:0 0 0 1px #f5c54266,0 0 34px #f5c54240}}
+.fc.g2 .front{box-shadow:0 0 18px #d3dcf014}.fc.g3 .front{box-shadow:0 0 18px #f0944a1a}
+.k.t1{box-shadow:inset 0 0 14px #ffd23f2a}
+/* 3D skins */
+.v3{position:relative;display:block;margin:0 auto;width:max-content;max-width:100%}
+.v3cv{display:block;margin:0 auto;cursor:grab;animation:fin .5s ease both}
+.v3cv:active{cursor:grabbing}
+.v3a{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:8px 0 2px}
+.v3a button{background:#0b0f1fcc;border:1px solid #2a3150;color:#b7bfdc;border-radius:999px;padding:6px 12px;font:600 12px Inter;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.v3a button.on{color:#fff;border-color:#ffc414;background:#2a2108}
+.v3h{color:#6b77a3;font-size:11px;margin-top:4px}
+.v3:not(.on3d) .v3a,.v3:not(.on3d) .v3h{visibility:hidden}
+@keyframes fin{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+/* region filter */
+.rfc{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.rfc button{background:#080b16;border:1px solid var(--line);color:var(--mut);border-radius:999px;padding:8px 14px;font:600 12px Inter;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.rfc button.on{color:#fff;border-color:#ff2d3d;background:#2a0d14}
+/* modal buttons */
+.mbtn{display:flex;gap:8px;align-items:stretch}
+.mbtn .vp{flex:1}
+.shr{display:flex;align-items:center;gap:6px;background:#1b2133;border:1px solid #2a3150;color:#dfe4f7;border-radius:14px;padding:0 16px;font:600 14px Inter;cursor:pointer;margin:8px 0 14px}
+.shr svg{width:16px;height:16px;fill:currentColor}
+/* smoother motion */
+.row,.fc,.tnc,.sc,.card,.col,.k,.tab,.st,.ptabs button,.sort button,.promo,.dcb,.vp{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .25s,background-color .25s,filter .25s}
+@media (hover:hover){.row:hover,.tnc:hover,.sc:hover,.card:hover{transform:translateY(-2px)}.col:hover{transform:translateY(-4px)}.k:hover,.tab:hover{transform:translateY(-1px)}}
+.row:active,.tnc:active,.col:active,.k:active,.vp:active,.shr:active,.dcb:active{transform:scale(.98)}
+.pcard{animation:pop2 .38s cubic-bezier(.2,1.1,.3,1) both!important}
+@keyframes pop2{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+#ov.on .bd{animation:bdin .3s ease both}@keyframes bdin{from{opacity:0}}
+nav{view-transition-name:topnav}
+::view-transition-old(root){animation:vto .16s ease both}
+::view-transition-new(root){animation:vti .32s cubic-bezier(.2,.8,.2,1) both}
+@keyframes vto{to{opacity:0}}@keyframes vti{from{opacity:0;transform:translateY(8px)}}
+@media (prefers-reduced-motion:reduce){.ttl::after,.shine::after{animation:none!important;display:none}.c1,.fc.g1 .front,.hero,.mdl{animation:none}}
