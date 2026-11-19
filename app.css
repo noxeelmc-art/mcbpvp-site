@@ -483,3 +483,6 @@ body::after{content:'';position:fixed;left:-20%;right:-20%;top:-30vh;height:80vh
 [hidden]{display:none!important}
 .row .nm{white-space:nowrap}
 @media (min-width:900px) and (max-width:1199px){#tb{left:50%;right:auto;transform:translateX(-50%);width:min(560px,calc(100% - 20px))}}
+
+/* narrow pages: keep the menu full width, only narrow the content */
+@media (min-width:900px){.w[data-pg=profile],.w[data-pg=tournament],.w[data-pg=rules],.w[data-pg=about],.w[data-pg=support],.w[data-pg=privacy],.w[data-pg=terms],.w[data-pg=register]{max-width:1180px}.w[data-pg=profile] #out,.w[data-pg=tournament] #out,.w[data-pg=rules] #out,.w[data-pg=about] #out,.w[data-pg=support] #out,.w[data-pg=privacy] #out,.w[data-pg=terms] #out,.w[data-pg=register] #out{max-width:900px;margin-left:auto;margin-right:auto}}
